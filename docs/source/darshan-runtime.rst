@@ -1,7 +1,12 @@
 Darshan-runtime installation and usage
-======================================
+**************************************
 
-== Introduction
+.. autosummary::
+   :toctree: generated
+   :numbered: 3
+
+Introduction
+==============================================================================
 
 This document describes darshan-runtime, which is the instrumentation
 portion of the Darshan characterization tool.  It should be installed on the
@@ -55,38 +60,43 @@ several common HPC systems are provided at the end of the document as well.
 More information about Darshan can be found at the
 http://www.mcs.anl.gov/darshan[Darshan web site].
 
-== Requirements
+Requirements
+==============================================================================
 
 * C compiler (preferably GCC-compatible)
 * zlib development headers and library
 
-== Conventional installation
+Conventional installation
+==============================================================================
 
-=== Compilation
+Compilation
+----------------------------------------
 
-.Configure and build example (with MPI support)
-----
-tar -xvzf darshan-<version-number>.tar.gz
-cd darshan-<version-number>/
-./prepare.sh
-cd darshan-runtime/
-./configure --with-log-path=/darshan-logs --with-jobid-env=PBS_JOBID CC=mpicc
-make
-make install
-----
+Configure and build example (with MPI support)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+.. code-block:: console
+    tar -xvzf darshan-<version-number>.tar.gz
+    cd darshan-<version-number>/
+    ./prepare.sh
+    cd darshan-runtime/
+    ./configure --with-log-path=/darshan-logs --with-jobid-env=PBS_JOBID CC=mpicc
+    make
+    make install
 
-.Configure and build example (without MPI support)
-----
-tar -xvzf darshan-<version-number>.tar.gz
-cd darshan-<version-number>/
-./prepare.sh
-cd darshan-runtime/
-./configure --with-log-path=/darshan-logs --with-jobid-env=PBS_JOBID --without-mpi CC=gcc
-make
-make install
-----
 
-.Explanation of configure arguments:
+Configure and build example (without MPI support)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+.. code-block:: console
+    tar -xvzf darshan-<version-number>.tar.gz
+    cd darshan-<version-number>/
+    ./prepare.sh
+    cd darshan-runtime/
+    ./configure --with-log-path=/darshan-logs --with-jobid-env=PBS_JOBID --without-mpi CC=gcc
+    make
+    make install
+
+Explanation of configure arguments:
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 * `--with-mem-align=NUM`: This value is system-dependent and will be used by
   Darshan to determine if the buffer for a read or write operation is aligned
   in memory (default is 8).
@@ -124,7 +134,8 @@ make install
   shutdown hook for the Darshan library when used in non-MPI mode.
 * `CC=`: specifies the C compiler to use for compilation.
 
-.Configure arguments for controlling which Darshan modules to use:
+Configure arguments for controlling which Darshan modules to use:
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 * `--disable-posix-mod`: disables compilation and use of Darshan's POSIX module
   (default=enabled)
 * `--disable-mpiio-mod`: disables compilation and usee of Darshan's MPI-IO
@@ -158,7 +169,8 @@ make install
 ** NOTE: To collect runtime I/O information from Darshan, you will need to configure, initialize, and connect to an LDMS streams daemon. For detailed instructions please visit link:https://ovis-hpc.readthedocs.io/en/latest/ldms/ldms-streams.html#run-an-ldms-streams-daemon[Running An LDMS Streams Daemon for Darshan].
 ** NOTE: If LDMS is not installed on the system, please visit “Getting the Source” and “Building the Source” in the link:https://ovis-hpc.readthedocs.io/en/latest/ldms/ldms-quickstart.html[LDMS Quick Start Guide].
 
-=== Environment preparation
+Environment preparation
+----------------------------------------
 
 Once darshan-runtime has been installed, you must prepare a location
 in which to store the Darshan log files and configure an instrumentation method.
@@ -176,38 +188,36 @@ multiple users to write to the same directory.  If the log directory is
 shared system-wide across many users then the following script should be run
 as root.
 
-----
-darshan-mk-log-dirs.pl
-----
+.. code-block:: console
+    darshan-mk-log-dirs.pl
 
-.A note about finding log paths after installation
-[NOTE]
-====
-Regardless of whether a Darshan installation is using the --with-log-path or
---with-log-path-by-env option, end users can display the path (and/or
-environment variables) at any time by running `darshan-config --log-path`
-on the command line.
-====
+A note about finding log paths after installation
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+.. note::
+    Regardless of whether a Darshan installation is using the --with-log-path or
+    --with-log-path-by-env option, end users can display the path (and/or
+    environment variables) at any time by running `darshan-config --log-path`
+    on the command line.
 
-.A note about log directory permissions
-[NOTE]
-====
-All log files written by Darshan have permissions set to only allow
-read access by the owner of the file.  You can modify this behavior,
-however, by specifying the --enable-group-readable-logs option at
-configure time.  One notable deployment scenario would be to configure
-Darshan and the log directories to allow all logs to be readable by both the
-end user and a Darshan administrators group.   This can be done with the
-following steps:
+A note about log directory permissions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+.. note::
+    All log files written by Darshan have permissions set to only allow
+    read access by the owner of the file.  You can modify this behavior,
+    however, by specifying the --enable-group-readable-logs option at
+    configure time.  One notable deployment scenario would be to configure
+    Darshan and the log directories to allow all logs to be readable by both the
+    end user and a Darshan administrators group.   This can be done with the
+    following steps:
 
-* set the --enable-group-readable-logs option at configure time
-* create the log directories with darshan-mk-log-dirs.pl
-* recursively set the group ownership of the log directories to the Darshan
-administrators group
-* recursively set the setgid bit on the log directories
-====
+    * set the --enable-group-readable-logs option at configure time
+    * create the log directories with darshan-mk-log-dirs.pl
+    * recursively set the group ownership of the log directories to the Darshan
+      administrators group
+    * recursively set the setgid bit on the log directories
 
-== Spack installation
+Spack installation
+==============================================================================
 
 You can also install Darshan via https://spack.io/[Spack] as an alternative
 to manual download, compilation, and installation.  This may be
@@ -215,10 +225,9 @@ especially convenient for single-user installs.  Darshan is divided
 into two separate packages for the command line utilities and runtime
 instrumentation.  You can install either or both as follows:
 
-----
-spack install darshan-util
-spack install darshan-runtime
-----
+.. code-block:: console
+    spack install darshan-util
+    spack install darshan-runtime
 
 [NOTE]
 ====
@@ -237,10 +246,10 @@ scheduler.
 The following commands will load the Darshan packages once they have been
 installed:
 
-----
-spack load -r darshan-util
-spack load -r darshan-runtime
-----
+.. code-block:: console
+    spack load -r darshan-util
+    spack load -r darshan-runtime
+
 
 Note that the spack install of darshan-runtime will use an environment
 variable named `$DARSHAN_LOG_DIR_PATH` to indicate where it should store log
@@ -253,11 +262,11 @@ available as described later in this document in the Cray platform recipe.
 It enables automatic instrumentation when using the standard Cray compiler
 wrappers.
 
-----
-module use `spack location -i darshan-runtime`/share/craype-2.x/modulefiles
-----
+.. code-block:: console
+    module use `spack location -i darshan-runtime`/share/craype-2.x/modulefiles
 
-== Instrumenting applications
+Instrumenting applications
+==============================================================================
 
 [NOTE]
 ====
@@ -269,7 +278,8 @@ Once Darshan has been installed and a log path has been prepared, the next
 step is to actually instrument applications. The preferred method is to
 instrument applications at compile time.
 
-=== Option 1: Instrumenting MPI applications at compile time
+Option 1: Instrumenting MPI applications at compile time
+----------------------------------------
 
 This method is applicable to C, Fortran, and C++ MPI applications
 (regardless of whether they are static or dynamically linked) and is the most
@@ -288,12 +298,12 @@ For other general MPICH-based MPI implementations, you can generate
 Darshan-enabled variants of the standard mpicc/mpicxx/mpif90/mpif77
 wrappers using the following commands:
 
-----
+.. code-block:: console
 darshan-gen-cc.pl `which mpicc` --output mpicc.darshan
 darshan-gen-cxx.pl `which mpicxx` --output mpicxx.darshan
 darshan-gen-fortran.pl `which mpif77` --output mpif77.darshan
 darshan-gen-fortran.pl `which mpif90` --output mpif90.darshan
------
+
 
 The resulting *.darshan wrappers will transparently inject Darshan
 instrumentation into the link step without any explicit user intervention.
@@ -306,20 +316,19 @@ manually adding the appropriate link options to your command line or
 modifying your default MPI compiler script.  The `darshan-config` command
 line tool can be used to display the options that you should use:
 
-----
-# Linker options to use for dynamic linking (default on most platforms)
-#   These arguments should go *before* the MPI libraries in the underlying
-#   linker command line to ensure that Darshan can be activated.  It should
-#   also ideally go before other libraries that may issue I/O function calls.
-darshan-config --dyn-ld-flags
+.. code-block:: console
+    # Linker options to use for dynamic linking (default on most platforms)
+    #   These arguments should go *before* the MPI libraries in the underlying
+    #   linker command line to ensure that Darshan can be activated.  It should
+    #   also ideally go before other libraries that may issue I/O function calls.
+    darshan-config --dyn-ld-flags
 
-# linker options to use for static linking
-#   The first set of arguments should go early in the link command line
-#   (before MPI, while the second set should go at the end of the link command
-#   line
-darshan-config --pre-ld-flags
-darshan-config --post-ld-flags
-----
+    # linker options to use for static linking
+    #   The first set of arguments should go early in the link command line
+    #   (before MPI, while the second set should go at the end of the link command
+    #   line
+    darshan-config --pre-ld-flags
+    darshan-config --post-ld-flags
 
 ==== Using a profile configuration
 
@@ -330,19 +339,19 @@ configuration using environment variables or command line arguments to the
 compiler scripts:
 
 Example for MPICH 3.1.1 or newer:
-----
-export MPICC_PROFILE=$DARSHAN_PREFIX/share/mpi-profile/darshan-cc
-export MPICXX_PROFILE=$DARSHAN_PREFIX/share/mpi-profile/darshan-cxx
-export MPIFORT_PROFILE=$DARSHAN_PREFIX/share/mpi-profile/darshan-f
-----
+.. code-block:: console
+    export MPICC_PROFILE=$DARSHAN_PREFIX/share/mpi-profile/darshan-cc
+    export MPICXX_PROFILE=$DARSHAN_PREFIX/share/mpi-profile/darshan-cxx
+    export MPIFORT_PROFILE=$DARSHAN_PREFIX/share/mpi-profile/darshan-f
+
 
 Examples for command line use:
-----
-mpicc -profile=$DARSHAN_PREFIX/share/mpi-profile/darshan-c <args>
-mpicxx -profile=$DARSHAN_PREFIX/share/mpi-profile/darshan-cxx <args>
-mpif77 -profile=$DARSHAN_PREFIX/share/mpi-profile/darshan-f <args>
-mpif90 -profile=$DARSHAN_PREFIX/share/mpi-profile/darshan-f <args>
-----
+.. code-block:: console
+    mpicc -profile=$DARSHAN_PREFIX/share/mpi-profile/darshan-c <args>
+    mpicxx -profile=$DARSHAN_PREFIX/share/mpi-profile/darshan-cxx <args>
+    mpif77 -profile=$DARSHAN_PREFIX/share/mpi-profile/darshan-f <args>
+    mpif90 -profile=$DARSHAN_PREFIX/share/mpi-profile/darshan-f <args>
+
 
 Note that unlike the previously described methods in this section, this
 method *will not* automatically adapt to static and dynamic linking options.
@@ -351,7 +360,8 @@ The example profile configurations show above only support dynamic linking.
 Example profile configurations are also provided with a "-static" suffix if
 you need examples for static linking.
 
-=== Option 2: Instrumenting MPI applications at runtime
+Option 2: Instrumenting MPI applications at runtime
+----------------------------------------
 
 This method is applicable to pre-compiled dynamically linked executables
 as well as interpreted languages such as Python.  You do not need to
@@ -366,19 +376,19 @@ for the application of interest. Typically this is possible using
 command line arguments offered by the `mpirun` or `mpiexec` scripts or by
 the job scheduler:
 
-----
-mpiexec -n 4 -env LD_PRELOAD /home/carns/darshan-install/lib/libdarshan.so mpi-io-test
-----
+.. code-block:: console
+    mpiexec -n 4 -env LD_PRELOAD /home/carns/darshan-install/lib/libdarshan.so mpi-io-test
 
-----
-srun -n 4 --export=LD_PRELOAD=/home/carns/darshan-install/lib/libdarshan.so mpi-io-test
-----
+
+.. code-block:: console
+    srun -n 4 --export=LD_PRELOAD=/home/carns/darshan-install/lib/libdarshan.so mpi-io-test
+
 
 For sequential invocations of MPI programs, the following will set LD_PRELOAD for process duration only:
 
-----
-env LD_PRELOAD=/home/carns/darshan-install/lib/libdarshan.so mpi-io-test
-----
+.. code-block:: console
+    env LD_PRELOAD=/home/carns/darshan-install/lib/libdarshan.so mpi-io-test
+
 
 Other environments may have other specific options for controlling this behavior.
 Please check your local site documentation for details.
@@ -387,16 +397,17 @@ It is also possible to just export LD_PRELOAD as follows, but it is recommended
 against doing that to prevent Darshan and MPI symbols from being pulled into
 unrelated binaries:
 
-----
-export LD_PRELOAD=/home/carns/darshan-install/lib/libdarshan.so
-----
+.. code-block:: console
+    export LD_PRELOAD=/home/carns/darshan-install/lib/libdarshan.so
+
 
 [NOTE]
 For SGI systems running the MPT environment, it may be necessary to set the `MPI_SHEPHERD`
 environment variable equal to `true` to avoid deadlock when preloading the Darshan shared
 library.
 
-=== Option 3: Instrumenting non-MPI applications at runtime
+Option 3: Instrumenting non-MPI applications at runtime
+----------------------------------------
 
 Similar to the process described in the previous section, Darshan relies on the
 `LD_PRELOAD` mechanism for instrumenting dynamically-linked non-MPI applications.
@@ -409,23 +420,24 @@ The only additional step required of Darshan non-MPI users is to also set the
 DARSHAN_ENABLE_NONMPI environment variable to signal to Darshan that non-MPI
 instrumentation is requested:
 
-----
-export DARSHAN_ENABLE_NONMPI=1
-----
+.. code-block:: console
+    export DARSHAN_ENABLE_NONMPI=1
+
 
 As described in the previous section, it may be desirable to users to limit the
 scope of Darshan's instrumentation by only enabling LD_PRELOAD on the target
 executable:
 
-----
-env LD_PRELOAD=/home/carns/darshan-install/lib/libdarshan.so io-test
-----
+.. code-block:: console
+    env LD_PRELOAD=/home/carns/darshan-install/lib/libdarshan.so io-test
+
 
 [NOTE]
-Recall that Darshan instrumentation of non-MPI applications is only possible with 
+Recall that Darshan instrumentation of non-MPI applications is only possible with
 dynamically-linked applications.
 
-=== Using other profiling tools at the same time as Darshan
+Using other profiling tools at the same time as Darshan
+----------------------------------------
 
 As of Darshan version 3.2.0, Darshan does not necessarily interfere with
 other profiling tools (particularly those using the PMPI profiling
@@ -436,7 +448,8 @@ static executables.
 As a rule of thumb most profiling tools should appear in the linker command
 line *before* -ldarshan if possible.
 
-== Using the Darshan eXtended Tracing (DXT) module
+Using the Darshan eXtended Tracing (DXT) module
+==============================================================================
 
 Darshan's DXT module provides full tracing of MPI-IO and POSIX read/write APIs.
 While the DXT module is able to capture finer-grained details compared to traditional
@@ -444,9 +457,9 @@ Darshan instrumentation, it may exhibit higher runtime and memory overheads.
 For this reason, DXT support is disabled by default in Darshan, but users can opt-in
 to DXT instrumentation at runtime by setting their environment as follows:
 
-----
-export DXT_ENABLE_IO_TRACE=1
-----
+.. code-block:: console
+    export DXT_ENABLE_IO_TRACE=1
+
 
 DXT will trace each I/O operation to files instrumented by Darshan's MPI-IO and
 POSIX modules, using a default memory limit of 2 MiB for each module (DXT_POSIX
@@ -454,7 +467,8 @@ and DXT_MPIIO). Memory usage and a number of other aspects of DXT tracing can
 be configured as described in section
 link:darshan-runtime.html#_configuring_darshan_library_at_runtime[Configuring Darshan library at runtime].
 
-== Using AutoPerf instrumentation modules
+Using AutoPerf instrumentation modules
+==============================================================================
 
 AutoPerf offers two additional Darshan instrumentation modules that may be enabled for MPI applications.
 
@@ -472,12 +486,13 @@ If using the APMPI module, users can additionally specify the `--enable-apmpi-co
 ====
 The AutoPerf instrumentation modules are provided as Git submodules to Darshan's main repository, so if building Darshan source that has been cloned from Git, it is necessary to first retrieve the AutoPerf submodules by running the following command:
 
-----
-git submodule update --init
-----
+.. code-block:: console
+    git submodule update --init
+
 ====
 
-== Configuring Darshan library at runtime
+Configuring Darshan library at runtime
+==============================================================================
 
 To fine tune Darshan library settings (e.g., internal memory usage, instrumentation
 scope, etc.), Darshan provides a couple of mechanisms:
@@ -498,11 +513,13 @@ is not already set, and if it is, users should consider copying the
 default config file as a starting point before applying their own settings.
 ====
 
-=== Darshan library config settings
+Darshan library config settings
+----------------------------------------
 
 The Darshan library honors the following settings to modify behavior at runtime:
 
-.Darshan library config settings
+Darshan library config settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 [cols="l,l,l",options="header"]
 |====
 | environment variable setting | config file setting | description
@@ -646,63 +663,66 @@ to startup and shutdown Darshan to stderr at runtime.
 
 ====
 
-=== Example Darshan configuration
+Example Darshan configuration
+----------------------------------------
 
 An example configuration file with annotations is given below
 (note that comments are allowed by prefixing a line with `#`):
 
-----
-# enable DXT modules, which are off by default
-MOD_ENABLE      DXT_POSIX,DXT_MPIIO
+.. code-block:: console
+    # enable DXT modules, which are off by default
+    MOD_ENABLE      DXT_POSIX,DXT_MPIIO
 
-# allocate 4096 file records for POSIX and MPI-IO modules
-# (darshan only allocates 1024 per-module by default)
-MAX_RECORDS     4096      POSIX,MPI-IO
+    # allocate 4096 file records for POSIX and MPI-IO modules
+    # (darshan only allocates 1024 per-module by default)
+    MAX_RECORDS     4096      POSIX,MPI-IO
 
-# the '*' specifier can be used to apply settings for all modules
-# in this case, we want all modules to ignore record names
-# prefixed with "/home" (i.e., stored in our home directory),
-# with a superseding inclusion for files with a ".out" suffix)
-NAME_EXCLUDE    ^/home        *
-NAME_INCLUDE    .out$         *
+    # the '*' specifier can be used to apply settings for all modules
+    # in this case, we want all modules to ignore record names
+    # prefixed with "/home" (i.e., stored in our home directory),
+    # with a superseding inclusion for files with a ".out" suffix)
+    NAME_EXCLUDE    ^/home        *
+    NAME_INCLUDE    .out$         *
 
-# bump up Darshan's default memory usage to 8 MiB
-MODMEM  8
+    # bump up Darshan's default memory usage to 8 MiB
+    MODMEM  8
 
-# avoid generating logs for git and ls binaries
-APP_EXCLUDE     git,ls
+    # avoid generating logs for git and ls binaries
+    APP_EXCLUDE     git,ls
 
-# exclude instrumentation for all ranks first
-RANK_EXCLUDE    0:
-# then selectively re-include ranks 0-3 and 12:15
-RANK_INCLUDE    0:3
-RANK_INCLUDE    12:15
+    # exclude instrumentation for all ranks first
+    RANK_EXCLUDE    0:
+    # then selectively re-include ranks 0-3 and 12:15
+    RANK_INCLUDE    0:3
+    RANK_INCLUDE    12:15
 
-# only retain DXT traces for files that were accessed
-# using small I/O ops 20+% of the time
-DXT_SMALL_IO_TRIGGER    .2
-----
+    # only retain DXT traces for files that were accessed
+    # using small I/O ops 20+% of the time
+    DXT_SMALL_IO_TRIGGER    .2
+
 
 This configuration could be similarly set using environment variables,
 though note that both `MAX_RECORDS` and `NAME_EXCLUDE`/`INCLUDE`
 settings do not have environment variable counterparts:
 
-----
-export DARSHAN_MOD_ENABLE="DXT_POSIX,DXT_MPIIO"
-export DARSHAN_MODMEM=8
-export DARSHAN_APP_EXCLUDE="git,ls"
-export DARSHAN_RANK_EXCLUDE="0:"
-export DARSHAN_RANK_INCLUDE="0:3,12:15"
-export DARSHAN_DXT_SMALL_IO_TRIGGER=.2
-----
+.. code-block:: console
+    export DARSHAN_MOD_ENABLE="DXT_POSIX,DXT_MPIIO"
+    export DARSHAN_MODMEM=8
+    export DARSHAN_APP_EXCLUDE="git,ls"
+    export DARSHAN_RANK_EXCLUDE="0:"
+    export DARSHAN_RANK_INCLUDE="0:3,12:15"
+    export DARSHAN_DXT_SMALL_IO_TRIGGER=.2
 
-== Darshan installation recipes
+
+Darshan installation recipes
+==============================================================================
 
 The following recipes provide examples for prominent HPC systems.
 These are intended to be used as a starting point.  You will most likely have to adjust paths and options to
 reflect the specifics of your system.
 
-=== Cray platforms (XE, XC, or similar)
+Cray platforms (XE, XC, or similar)
+----------------------------------------
 
 This section describes how to compile and install Darshan,
 as well as how to use a software module to enable and disable Darshan
@@ -724,19 +744,20 @@ system using the GNU programming environment.  Adjust the
 --with-log-path and --prefix arguments to point to the desired log file path
 and installation path, respectively.
 
-----
-module swap PrgEnv-pgi PrgEnv-gnu
-./configure \
- --with-log-path=/shared-file-system/darshan-logs \
- --prefix=/soft/darshan-3.3.0 \
- --with-jobid-env=SLURM_JOBID \
- --with-username-env=SLURM_JOB_USER \
- CC=cc
-make install
-module swap PrgEnv-gnu PrgEnv-pgi
-----
+.. code-block:: console
+    module swap PrgEnv-pgi PrgEnv-gnu
+    ./configure \
+        --with-log-path=/shared-file-system/darshan-logs \
+        --prefix=/soft/darshan-3.3.0 \
+        --with-jobid-env=SLURM_JOBID \
+        --with-username-env=SLURM_JOB_USER \
+        CC=cc
+    make install
+    module swap PrgEnv-gnu PrgEnv-pgi
 
-.Rationale
+
+Rationale
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 [NOTE]
 ====
 The job ID is set to `SLURM_JOBID` for use with a Slurm based scheduler.
@@ -751,12 +772,12 @@ acceptable HDF5 module (e.g., `module load cray-hdf5-parallel`) prior to
 building and use the the `--enable-hdf5-mod` configure argument.
 We additionally recommend that you modify Darshan's generated Cray software
 module to include a dependency on the HDF5 software module used -- this is
-necessary to ensure Darshan library dependencies are satisfied at 
+necessary to ensure Darshan library dependencies are satisfied at
 application link and run time.
 
-----
-prereq cray-hdf5-parallel
-----
+.. code-block:: console
+    prereq cray-hdf5-parallel
+
 
 Note that the Darshan-enabled Cray compiler wrappers will always prefer
 user-supplied HDF5 libraries over the library used to build Darshan.
@@ -767,7 +788,8 @@ users use an HDF5 version that is incompatible with Darshan, either
 link or runtime errors will occur and the user will have to  switch
 HDF5 versions or unload the Darshan module.
 
-.Optional RDTSCP timers for Theta
+Optional RDTSCP timers for Theta
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 [NOTE]
 ====
 Darshan's default mechanism (`clock_gettime()`) for retrieving timing
@@ -807,10 +829,10 @@ Darshan will automatically install example software module files in the
 following locations (depending on how you specified the --prefix option in
 the previous section):
 
-----
-/soft/darshan-3.3.0/share/craype-1.x/modulefiles/darshan
-/soft/darshan-3.3.0/share/craype-2.x/modulefiles/darshan
-----
+.. code-block:: console
+    /soft/darshan-3.3.0/share/craype-1.x/modulefiles/darshan
+    /soft/darshan-3.3.0/share/craype-2.x/modulefiles/darshan
+
 
 Select the one that is appropriate for your Cray programming environment
 (see the version number of the craype module in `module list`).
@@ -831,38 +853,41 @@ The modulefile that you select can be copied to a system location, or the
 install location can be added to your local module path with the following
 command:
 
-----
-module use /soft/darshan-3.3.0/share/craype-<VERSION>/modulefiles
-----
+.. code-block:: console
+    module use /soft/darshan-3.3.0/share/craype-<VERSION>/modulefiles
+
 
 From this point, Darshan instrumentation can be enabled for all future
 application compilations by running "module load darshan".
 
-=== Linux clusters using MPICH
+Linux clusters using MPICH
+----------------------------------------
 
 Most MPICH installations produce dynamic executables by default.  To
 configure Darshan in this environment you can use the following example.  We
 recommend using mpicc with GNU compilers to compile Darshan.
 
-----
-./configure --with-log-path=/darshan-logs --with-jobid-env=PBS_JOBID CC=mpicc
-----
+.. code-block:: console
+    ./configure --with-log-path=/darshan-logs --with-jobid-env=PBS_JOBID CC=mpicc
+
 
 The darshan-gen-* scripts described earlier in this document can be used
 to create variants of the standard mpicc/mpicxx/mpif77/mpif90 scripts
 that are Darshan enabled.  These scripts will work correctly for both
 dynamic and statically linked executables.
 
-=== Linux clusters using Intel MPI
+Linux clusters using Intel MPI
+----------------------------------------
 
 Most Intel MPI installations produce dynamic executables by default.  To
 configure Darshan in this environment you can use the following example:
 
-----
-./configure --with-log-path=/darshan-logs --with-jobid-env=PBS_JOBID CC=mpicc
-----
+.. code-block:: console
+    ./configure --with-log-path=/darshan-logs --with-jobid-env=PBS_JOBID CC=mpicc
 
-.Rationale
+
+Rationale
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 [NOTE]
 ====
 There is nothing unusual in this configuration except that you should use
@@ -876,7 +901,8 @@ You can enable Darshan instrumentation at compile time by adding
 Alternatively you can use `LD_PRELOAD` runtime instrumentation method to
 instrument executables that have already been compiled.
 
-=== Linux clusters using Open MPI
+Linux clusters using Open MPI
+----------------------------------------
 
 Follow the generic instructions provided at the top of this document for
 compilation, and make sure that the `CC` used for compilation is based on a
@@ -888,9 +914,11 @@ You can enable Darshan instrumentation at compile time by adding
 Alternatively you can use `LD_PRELOAD` runtime instrumentation method to
 instrument executables that have already been compiled.
 
-== Debugging
+Debugging
+==============================================================================
 
-=== No log file
+No log file
+----------------------------------------
 
 In cases where Darshan is not generating a log file for an application, some common things to check are:
 
@@ -902,27 +930,27 @@ In cases where Darshan is not generating a log file for an application, some com
 For statically linked executables:
 
 * Ensure that Darshan symbols are present in the underlying executable by running `nm` on it:
-----
-> nm test | grep darshan
-0000000000772260 b darshan_core
-0000000000404440 t darshan_core_cleanup
-00000000004049b0 T darshan_core_initialize
-000000000076b660 d darshan_core_mutex
-00000000004070a0 T darshan_core_register_module
-----
+.. code-block:: console
+    > nm test | grep darshan
+    0000000000772260 b darshan_core
+    0000000000404440 t darshan_core_cleanup
+    00000000004049b0 T darshan_core_initialize
+    000000000076b660 d darshan_core_mutex
+    00000000004070a0 T darshan_core_register_module
+
 
 For dynamically linked executables:
 
 * Ensure that the Darshan library is present in the list of shared libraries
   to be used by the application, and that it appears before the MPI library:
-----
-> ldd mpi-io-test
-	linux-vdso.so.1 (0x00007ffd83925000)
-	libdarshan.so => /home/carns/working/install/lib/libdarshan.so (0x00007f0f4a7a6000)
-	libmpi.so.12 => /home/carns/working/src/spack/opt/spack/linux-ubuntu19.10-skylake/gcc-9.2.1/mpich-3.3.2-h3dybprufq7i5kt4hcyfoyihnrnbaogk/lib/libmpi.so.12 (0x00007f0f4a44f000)
-	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f0f4a241000)
-        ...
-----
+.. code-block:: console
+    > ldd mpi-io-test
+	    linux-vdso.so.1 (0x00007ffd83925000)
+	    libdarshan.so => /home/carns/working/install/lib/libdarshan.so (0x00007f0f4a7a6000)
+	    libmpi.so.12 => /home/carns/working/src/spack/opt/spack/linux-ubuntu19.10-skylake/gcc-9.2.1/mpich-3.3.2-h3dybprufq7i5kt4hcyfoyihnrnbaogk/lib/libmpi.so.12 (0x00007f0f4a44f000)
+	    libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f0f4a241000)
+            ...
+
 
 General:
 
@@ -933,6 +961,6 @@ in the link command, which can interfere with Darshan's instrumentation
         *** MPICH's `mpicc` comipler's `-show` flag can be used to examine the invoked link command, for instance
     ** The linker's `-y` option can be used to verify that Darshan is properly intercepting MPI_Init
 function (e.g. by setting `CFLAGS='-Wl,-yMPI_Init'`), which it uses to initialize its runtime structures
-----
-/usr/common/software/darshan/3.0.0-pre3/lib/libdarshan.a(darshan-core-init-finalize.o): definition of MPI_Init
-----
+.. code-block:: console
+    /usr/common/software/darshan/3.0.0-pre3/lib/libdarshan.a(darshan-core-init-finalize.o): definition of MPI_Init
+
