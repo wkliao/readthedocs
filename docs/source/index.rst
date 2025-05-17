@@ -17,7 +17,14 @@ Contents
 --------
 
 .. toctree::
+   :numbered: 2
+   :maxdepth: 1
 
    usage
-   api
+
+.. toctree::
+   :numbered: 3
+   :maxdepth: 2
+
    darshan-runtime
+
