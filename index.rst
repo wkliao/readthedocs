@@ -1,0 +1,48 @@
+Welcome to Darshan's documentation
+===================================
+
+The Darshan source tree is divided into two parts:
+
+* ``darshan-runtime``: to be installed on systems where you intend to instrument
+  MPI applications.
+* ``darshan-util``: to be installed on systems where you intend to analyze log
+  files produced by darshan-runtime.
+* ``PyDarshan``: a Python package providing interfaces to Darshan log file.
+
+This document gives details on the design of the new modularized version of
+Darshan (3.x) and how new instrumentation modules may be developed within
+Darshan.
+
+Site-specific documentation for facilities that deploy Darshan in production:
+
+* Argonne Leadership Computing Facility (ALCF):
+  `Theta <https://www.alcf.anl.gov/support-center/theta/darshan-theta>`_,
+  `Cooley <https://www.alcf.anl.gov/support-center/cooley/darshan-cooley>`_.
+* National Energy Research Scientific Computing Center
+  (`NERSC <https://docs.nersc.gov/environment/#darshan-and-altd>`_)
+* National Center for Supercomputing Applications
+  (`NCSA <https://bluewaters.ncsa.illinois.edu/darshan>`_)
+* Oak Ridge Leadership Computing Facility (OLCF):
+  `darshan-runtime <https://www.olcf.ornl.gov/software_package/darshan-runtime/>`_,
+  `darshan-util <https://www.olcf.ornl.gov/software_package/darshan-util/>`_.
+* King Abdullah University of Science and Technology
+  (`KAUST <https://www.hpc.kaust.edu.sa/sites/default/files/files/public/Parallel_IO_bh.pdf>`.)
+* European Centre for Medium-Range Weather Forecasts
+  (`ECMWF <https://software.ecmwf.int/wiki/display/UDOC/How+to+use+Darshan+to+profile+IO>`_)
+* Ohio Supercomputer Center
+  (`OSC <https://www.osc.edu/resources/available_software/software_list/darshan>`_)
+* JÃ¼lich Supercomputing Centre
+  (`JSC <https://apps.fz-juelich.de/unite/files/DebugAndPerformanceTools-latest.pdf>`_)
+
+.. note::
+
+   This project is under active development.
+
+.. toctree::
+   :numbered: 3
+   :maxdepth: 2
+   :caption: Table of Contents
+
+   darshan-runtime/doc/darshan-runtime
+   darshan-util/doc/darshan-util
+
