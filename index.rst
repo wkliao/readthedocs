@@ -1,13 +1,18 @@
-Welcome to Darshan's documentation
+Welcome to Darshan's Documentation
 ===================================
+
+.. note::
+
+   This project is under active development.
 
 The Darshan source tree is divided into two parts:
 
-* ``darshan-runtime``: to be installed on systems where you intend to instrument
-  MPI applications.
+* ``darshan-runtime``: to be installed on systems where you intend to
+  instrument MPI applications.
 * ``darshan-util``: to be installed on systems where you intend to analyze log
   files produced by darshan-runtime.
-* ``PyDarshan``: a Python package providing interfaces to Darshan log file.
+  +  ``darshan-util/pydarshan``: a Python package providing interfaces to
+     Darshan log file.
 
 This document gives details on the design of the new modularized version of
 Darshan (3.x) and how new instrumentation modules may be developed within
@@ -26,17 +31,13 @@ Site-specific documentation for facilities that deploy Darshan in production:
   `darshan-runtime <https://www.olcf.ornl.gov/software_package/darshan-runtime/>`_,
   `darshan-util <https://www.olcf.ornl.gov/software_package/darshan-util/>`_.
 * King Abdullah University of Science and Technology
-  (`KAUST <https://www.hpc.kaust.edu.sa/sites/default/files/files/public/Parallel_IO_bh.pdf>`.)
+  (`KAUST <https://www.hpc.kaust.edu.sa/sites/default/files/files/public/Parallel_IO_bh.pdf>`_)
 * European Centre for Medium-Range Weather Forecasts
   (`ECMWF <https://software.ecmwf.int/wiki/display/UDOC/How+to+use+Darshan+to+profile+IO>`_)
 * Ohio Supercomputer Center
   (`OSC <https://www.osc.edu/resources/available_software/software_list/darshan>`_)
 * JÃ¼lich Supercomputing Centre
   (`JSC <https://apps.fz-juelich.de/unite/files/DebugAndPerformanceTools-latest.pdf>`_)
-
-.. note::
-
-   This project is under active development.
 
 .. toctree::
    :numbered: 3
@@ -45,4 +46,5 @@ Site-specific documentation for facilities that deploy Darshan in production:
 
    darshan-runtime/doc/darshan-runtime
    darshan-util/doc/darshan-util
+   darshan-util/pydarshan/docs/index
 
