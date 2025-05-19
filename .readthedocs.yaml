@@ -4,10 +4,19 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "3.10"
+  jobs:
+    pre_install:
+      - git submodule update --init
+      - export DARSHAN_INSTALL_PREFIX=$PWD/darshan_install
+      - export DARSHAN_RUNTIME_SKIP=1
+      - darshan-test/automated/build-darshan.sh
+      - make -C darshan_build/darshan-util check
 
 python:
   install:
     - requirements: docs/readthedocs_requirements.txt
+    - method: pip
+      path: darshan-util/pydarshan
 
 sphinx:
   configuration: conf.py
