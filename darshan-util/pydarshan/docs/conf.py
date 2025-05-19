@@ -172,8 +172,7 @@ texinfo_documents = [
 
 
 intersphinx_mapping = {
-    'https://docs.python.org/': None,
-    'http://matplotlib.org': None,
+  "python": ('https://docs.python.org/', None),
+  "matplotlib": ("https://matplotlib.org", None),
 }
-
 
