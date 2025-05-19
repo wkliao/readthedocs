@@ -3,6 +3,11 @@
 # Generic script to automate building of Darshan
 #
 
+echo "DARSHAN_INSTALL_PREFIX=$DARSHAN_INSTALL_PREFIX"
+echo "DARSHAN_RUNTIME_SKIP=$DARSHAN_RUNTIME_SKIP"
+echo "DARSHAN_UTIL_CONFIG_ARGS=$DARSHAN_UTIL_CONFIG_ARGS"
+set -x
+
 basedir=$PWD
 build_dir=$PWD/darshan_build
 script_dir=$(dirname $(realpath $0))

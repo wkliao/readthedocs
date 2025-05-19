@@ -2,14 +2,22 @@ version: "2"
 
 build:
   os: "ubuntu-22.04"
+  apt_packages:
+    - autoconf
+    - automake
+    - libtool
+    - libtool-bin
+    - m4
+
   tools:
     python: "3.10"
   jobs:
     pre_install:
+      - autoconf --version
+      - automake --version
+      - libtool --version
       - git submodule update --init
-      - export DARSHAN_INSTALL_PREFIX=$PWD/darshan_install
-      - export DARSHAN_RUNTIME_SKIP=1
-      - darshan-test/automated/build-darshan.sh
+      - DARSHAN_INSTALL_PREFIX=$PWD/darshan_install DARSHAN_RUNTIME_SKIP=1 DARSHAN_UTIL_CONFIG_ARGS="--disable-apmpi-mod --disable-apxc-mod" darshan-test/automated/build-darshan.sh
       - make -C darshan_build/darshan-util check
 
 python:
