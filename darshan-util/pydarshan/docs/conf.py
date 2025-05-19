@@ -63,7 +63,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'PyDarshan'
+project = u'PyDarshan API Reference'
 copyright = u"2021, Argonne National Laboratory"
 author = u""
 

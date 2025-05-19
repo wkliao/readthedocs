@@ -73,7 +73,7 @@ APMPI and APXC modules, respectively.
 .. note::
    AutoPerf log analysis code is provided as Git submodules to Darshan's main
    repository, so if building Darshan source that has been cloned from Git, it
-   is neccessary to first retrieve the AutoPerf submodules by running the
+   is necessary to first retrieve the AutoPerf submodules by running the
    following command:
 
    .. code-block:: bash
@@ -127,7 +127,7 @@ An example of the output produced by darshan-job-summary.pl can be found
 
 .. note::
    The darshan-job-summary tool depends on a few LaTeX packages that may not be
-   availalble by default on all systems, including: lastpage, subfigure, and
+   available by default on all systems, including: lastpage, subfigure, and
    threeparttable. These packages can be found and installed using your
    system's package manager. For instance, the packages can be installed on
    Debian or Ubuntu systems as follows: ``apt-get install texlive-latex-extra``
@@ -180,7 +180,7 @@ Guide to darshan-parser output
 The beginning of the output from darshan-parser displays a summary of overall
 information about the job. Additional job-level summary information can also be
 produced using the ``--perf``, ``--file``, or ``--total`` command line options.
-See Section :ref:`Additional summary output` for more information
+See Section :ref:`Sec Additional summary output` for more information
 about those options.
 
 The following table defines the meaning of each line in the default header
@@ -986,7 +986,7 @@ a synopsis of I/O intensity regardless of how many files are accessed.
 Heatmap records are never aggregated across ranks.
 
 The file name field is used to indicate the API that produced the
-histogram record.  For exmaple, "heatmap:POSIX" indicates that the record is
+histogram record.  For example, "heatmap:POSIX" indicates that the record is
 reporting I/O traffic that passed through the POSIX module.
 
 The number of BIN fields present in each record may vary depending on the
@@ -1145,10 +1145,12 @@ Additional modules
    * - BGQ_F_TIMESTAMP
      - Timestamp of when BG/Q data was collected
 
+.. _Sec Additional summary output:
+
 Additional summary output
 -------------------------------------
 
-The following sections describe addtitional parser options that provide
+The following sections describe additional parser options that provide
 summary I/O characterization data for the given log.
 
 .. note::
@@ -1371,14 +1373,14 @@ file/rank block, I/O trace segments are ordered chronologically.
 
 Before providing details on each I/O operation, DXT provides a short preamble
 for each file/rank trace block with the following bits of information: the
-Darshan identifier for the file (which is equivalent to the identifers used by
+Darshan identifier for the file (which is equivalent to the identifiers used by
 Darshan in its traditional modules), the full file path, the corresponding MPI
 rank the current block of trace data belongs to, the hostname associated with
 this process rank, the number of individual POSIX read and write operations by
 this process, and the mount point and file system type corresponding to the
 traced file.
 
-The output format for each indvidual I/O operation segment is:
+The output format for each individual I/O operation segment is:
 
 .. code-block::
 
@@ -1388,7 +1390,7 @@ The output format for each indvidual I/O operation segment is:
 * Rank: process rank responsible for I/O operation
 * Wt/Rd: whether the operation was a write or read
 * Segment: The operation number for this segment (first operation is segment 0)
-* Offset: file offset the I/O operation occured at
+* Offset: file offset the I/O operation occurred at
 * Length: length of the I/O operation in bytes
 * Start: timestamp of the start of the operation (w.r.t. application start time)
 * End: timestamp of the end of the operation (w.r.t. application start time)
@@ -1407,7 +1409,7 @@ POSIX module, except that the offset of file operations is not tracked.
 Other darshan-util utilities
 =======================================
 
-The darshan-util package includes a number of other utilies that can be
+The darshan-util package includes a number of other utilities that can be
 summarized briefly as follows:
 
 * darshan-convert: converts an existing log file to the newest log format.
