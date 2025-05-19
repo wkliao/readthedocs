@@ -311,7 +311,7 @@ step is to actually instrument applications. The preferred method is to
 instrument applications at compile time.
 
 Option 1: Instrumenting MPI applications at compile time
-----------------------------------------
+--------------------------------------------------------
 
 This method is applicable to C, Fortran, and C++ MPI applications
 (regardless of whether they are static or dynamically linked) and is the most
@@ -338,7 +338,7 @@ wrappers using the following commands:
     darshan-gen-fortran.pl `which mpif90` --output mpif90.darshan
 
 
-The resulting *.darshan wrappers will transparently inject Darshan
+The resulting ``*.darshan`` wrappers will transparently inject Darshan
 instrumentation into the link step without any explicit user intervention.
 They can be renamed and placed in an appropriate
 PATH to enable automatic instrumentation.  This method also works correctly
@@ -402,7 +402,7 @@ Example profile configurations are also provided with a "-static" suffix if
 you need examples for static linking.
 
 Option 2: Instrumenting MPI applications at runtime
-----------------------------------------
+--------------------------------------------------------
 
 This method is applicable to pre-compiled dynamically linked executables
 as well as interpreted languages such as Python.  You do not need to
@@ -452,7 +452,7 @@ unrelated binaries:
     when preloading the Darshan shared library.
 
 Option 3: Instrumenting non-MPI applications at runtime
-----------------------------------------
+--------------------------------------------------------
 
 Similar to the process described in the previous section, Darshan relies on the
 ``LD_PRELOAD`` mechanism for instrumenting dynamically-linked non-MPI applications.
@@ -484,7 +484,7 @@ executable:
     possible with dynamically-linked applications.
 
 Using other profiling tools at the same time as Darshan
-----------------------------------------
+--------------------------------------------------------
 
 As of Darshan version 3.2.0, Darshan does not necessarily interfere with
 other profiling tools (particularly those using the PMPI profiling
@@ -1032,7 +1032,7 @@ configure Darshan in this environment you can use the following example:
 
 
 Rationale
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
     There is nothing unusual in this configuration except that you should use
@@ -1074,14 +1074,14 @@ In cases where Darshan is not generating a log file for an application, some com
 For statically linked executables:
 
 * Ensure that Darshan symbols are present in the underlying executable by running ``nm`` on it:
- .. code-block:: bash
+  .. code-block:: bash
 
-    > nm test | grep darshan
-    0000000000772260 b darshan_core
-    0000000000404440 t darshan_core_cleanup
-    00000000004049b0 T darshan_core_initialize
-    000000000076b660 d darshan_core_mutex
-    00000000004070a0 T darshan_core_register_module
+     > nm test | grep darshan
+     0000000000772260 b darshan_core
+     0000000000404440 t darshan_core_cleanup
+     00000000004049b0 T darshan_core_initialize
+     000000000076b660 d darshan_core_mutex
+     00000000004070a0 T darshan_core_register_module
 
 
 For dynamically linked executables:

@@ -11,8 +11,8 @@ The Darshan source tree is divided into two parts:
   instrument MPI applications.
 * ``darshan-util``: to be installed on systems where you intend to analyze log
   files produced by darshan-runtime.
-  +  ``darshan-util/pydarshan``: a Python package providing interfaces to
-     Darshan log file.
+  + ``darshan-util/pydarshan``: a Python package providing interfaces to
+    Darshan log file.
 
 This document gives details on the design of the new modularized version of
 Darshan (3.x) and how new instrumentation modules may be developed within
@@ -42,9 +42,34 @@ Site-specific documentation for facilities that deploy Darshan in production:
 .. toctree::
    :numbered: 3
    :maxdepth: 2
-   :caption: Table of Contents
+   :caption: Darshan Runtime
 
    darshan-runtime/doc/darshan-runtime
+
+.. toctree::
+   :numbered: 3
+   :maxdepth: 2
+   :caption: Darshan Utilities
+
    darshan-util/doc/darshan-util
-   darshan-util/pydarshan/docs/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: PyDarshan
+
+   darshan-util/pydarshan/docs/readme
+   darshan-util/pydarshan/docs/install
+   darshan-util/pydarshan/docs/usage
+
+.. toctree::
+   :maxdepth: 2
+   :caption: PyDarshan API Reference:
+
+   darshan_build/darshan-util/pydarshan/docs/api/pydarshan/modules
+
+Indices and tables
+==================
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
 
