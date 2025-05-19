@@ -55,6 +55,7 @@ Site-specific documentation for facilities that deploy Darshan in production:
 .. toctree::
    :maxdepth: 2
    :caption: PyDarshan
+   :name: pydarshantoc
 
    darshan-util/pydarshan/docs/readme
    darshan-util/pydarshan/docs/install
