@@ -13,10 +13,10 @@ build:
     python: "3.10"
   jobs:
     pre_install:
-      - git submodule update --init
-      - autoreconf -i
+      # - git submodule update --init
+      - cd darshan-util && autoreconf -i
       - mkdir -p build && cd build && ../darshan-util/configure --prefix=$DARSHAN_INSTALL_PREFIX && make -j4 install
-      - cd darshan-util/pydarshan ; pip install -r requirements_dev.txt ; make docs
+      - cd darshan-util/pydarshan && pip install -r requirements_dev.txt && make docs
 
 python:
   install:
