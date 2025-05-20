@@ -108,19 +108,21 @@ Compilation
 * ``--with-username-env=NAME``: this specifies the environment variable that
   Darshan should check to determine the username for a job. If not specified,
   Darshan will use internal mechanisms to try to determine the username.
-    .. note::
-       Darshan relies on the ``LOGNAME`` environment variable to determine a
-       username, but this method isn't always reliable (e.g., on Slurm systems,
-       ``LOGNAME`` can be wiped when specifying additional environment
-       variables using the ``--export`` option to ``srun``).  This configure
-       option allows specification of an additional environment variable to
-       extract a username from (e.g., ``SLURM_JOB_USER``).
+
+  .. note::
+     Darshan relies on the ``LOGNAME`` environment variable to determine a
+     username, but this method isn't always reliable (e.g., on Slurm systems,
+     ``LOGNAME`` can be wiped when specifying additional environment
+     variables using the ``--export`` option to ``srun``).  This configure
+     option allows specification of an additional environment variable to
+     extract a username from (e.g., ``SLURM_JOB_USER``).
 * ``--with-log-path=DIR`` (this, or ``--with-log-path-by-env``, is mandatory):
   This specifies the parent directory for the directory tree where Darshan logs
   will be placed.
-    .. note::
-       After installation, any user can display the configured path with the
-       ``darshan-config --log-path`` command.
+
+  .. note::
+     After installation, any user can display the configured path with the
+     ``darshan-config --log-path`` command.
 * ``--with-log-path-by-env=NAME1,NAME2,...``: specifies a comma separated list
   of environment variables to check at runtime for log path location before the
   one set by ``--with-log-path=DIR`` at configure time.
@@ -155,52 +157,56 @@ Compilation
   (default=disabled)
 * ``--with-hdf5=DIR``:
   installation directory for HDF5
-    .. note::
-       * Users must call ``--enable-hdf5-mod`` to enable HDF5 modules,
-         ``--with-hdf5`` is only used to additionally provide an HDF5 install
-         prefix.
-       * HDF5 instrumentation only works on HDF5 library versions >= 1.8, and
-         further requires that the HDF5 library used to build Darshan and the
-         HDF5 library being linked in either both be version >=1.10 or both be
-         version < 1.10.
-       * This option does not work with the profile configuration
-         instrumentation method described in the "Instrumenting applications"
-         section :ref:`Sec Use Profile`.
+
+  .. note::
+     * Users must call ``--enable-hdf5-mod`` to enable HDF5 modules,
+       ``--with-hdf5`` is only used to additionally provide an HDF5 install
+       prefix.
+     * HDF5 instrumentation only works on HDF5 library versions >= 1.8, and
+       further requires that the HDF5 library used to build Darshan and the
+       HDF5 library being linked in either both be version >=1.10 or both be
+       version < 1.10.
+     * This option does not work with the profile configuration
+       instrumentation method described in the "Instrumenting applications"
+       section :ref:`Sec Use Profile`.
 * ``--enable-pnetcdf-mod``: enables compilation and use of Darshan's PnetCDF
   module (default=disabled)
 * ``--with-pnetcdf=DIR``:
   installation directory for PnetCDF
-    .. note::
-       * Users must call ``--enable-pnetcdf-mod`` to enable PnetCDF modules,
-         ``--with-pnetcdf`` is only used to additionally provide a PnetCDF
-         install prefix.
-       * PnetCDF instrumentation only works on PnetCDF library versions >= 1.8.
+
+  .. note::
+     * Users must call ``--enable-pnetcdf-mod`` to enable PnetCDF modules,
+       ``--with-pnetcdf`` is only used to additionally provide a PnetCDF
+       install prefix.
+     * PnetCDF instrumentation only works on PnetCDF library versions >= 1.8.
 * ``--disable-lustre-mod``: disables compilation and use of Darshan's Lustre
   module (default=enabled)
 * ``--enable-daos-mod``: enables compilation and use of Darshan's DAOS module
   (default=disabled)
 * ``--with-daos=DIR``:
   installation directory for DAOS
-    .. note::
-       Users must call ``--enable-daos-mod`` to enable DAOS modules,
-       ``--with-daos`` is only used to additionally provide a DAOS install
-       prefix.
+
+  .. note::
+     Users must call ``--enable-daos-mod`` to enable DAOS modules,
+     ``--with-daos`` is only used to additionally provide a DAOS install
+     prefix.
 * ``--enable-mdhim-mod``: enables compilation and use of Darshan's MDHIM module
   (default=disabled)
 * ``--enable-ldms-mod``:  enables compilation and use of Darshan’s LDMS runtime
   module (default=disabled)
 * ``--with-ldms=DIR``:
   installation directory for LDMS
-    .. note::
-       * Users must use the configuration flags ``--enable-ldms-mod`` and
-         ``--with-ldms=DIR`` to enable runtime data collection via LDMS.
-       * To collect runtime I/O information from Darshan, you will need to
-         configure, initialize, and connect to an LDMS streams daemon. For
-         detailed instructions please visit
-         `Running An LDMS Streams Daemon for Darshan <https://ovis-hpc.readthedocs.io/projects/ldms/en/latest/streams/ldms-streams-apps.html#darshan>`_.
-       * If LDMS is not installed on the system, please visit “Getting the
-         Source” and “Building the Source” in the
-         `LDMS Quick Start Guide <https://ovis-hpc.readthedocs.io/projects/ldms/en/latest/intro/quick-start.html>`_.
+
+  .. note::
+     * Users must use the configuration flags ``--enable-ldms-mod`` and
+       ``--with-ldms=DIR`` to enable runtime data collection via LDMS.
+     * To collect runtime I/O information from Darshan, you will need to
+       configure, initialize, and connect to an LDMS streams daemon. For
+       detailed instructions please visit
+       `Running An LDMS Streams Daemon for Darshan <https://ovis-hpc.readthedocs.io/projects/ldms/en/latest/streams/ldms-streams-apps.html#darshan>`_.
+     * If LDMS is not installed on the system, please visit “Getting the
+       Source” and “Building the Source” in the
+       `LDMS Quick Start Guide <https://ovis-hpc.readthedocs.io/projects/ldms/en/latest/intro/quick-start.html>`_.
 
 Environment preparation
 ----------------------------------------

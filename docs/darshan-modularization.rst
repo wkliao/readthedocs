@@ -588,7 +588,7 @@ to integrate new instrumentation modules:
     install this file with libdarshan.
 
 Instrumentation module implementation
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In addtion to the development notes from above and the exemplar "NULL" and
 POSIX modules, we provide the following notes to assist module developers:
@@ -626,7 +626,7 @@ integrate new instrumentation modules:
     updates.
 
 Module-specific logutils and utilities
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For a straightforward reference implementation of module-specific log utility
 functions, consider the implementations for the NULL module
