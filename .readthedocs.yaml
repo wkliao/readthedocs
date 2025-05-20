@@ -23,7 +23,7 @@ build:
 
 python:
   install:
-    - requirements: readthedocs_requirements.txt
+    - requirements: readthedocs/requirements.txt
     - method: pip
       path: darshan-util/pydarshan
 
