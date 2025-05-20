@@ -38,9 +38,14 @@ workloads using the newly developed Darshan eXtended Tracing (DxT) instrumentati
 module. This module can be selectively enabled at runtime to provide high-fidelity
 traces of an application's I/O workload, as opposed to the coarse-grained I/O summary
 data that Darshan has traditionally provided. Currently, DxT only traces at the POSIX
-and MPI-IO layers. Initial `performance results <./DXT-overhead.pdf>`_ demonstrate the
-low overhead of DxT tracing, offering comparable performance to Darshan's traditional
-coarse-grained instrumentation methods.
+and MPI-IO layers. Figure below demonstrates the low overhead of DxT tracing, an
+example run collected from Cori at NERSC, which offers comparable performance
+to Darshan's traditional coarse-grained instrumentation methods.
+
+.. image:: DXT-overhead.jpg
+   :align: center
+   :width: 600
+   :alt: Measure DXT Overhead with IOR Benchmark on Cori
 
 Starting in version 3.4.5, Darshan facilitates real-time collection of comprehensive
 application I/O workload traces through the newly integrated Darshan LDMS data module,
