@@ -69,7 +69,7 @@ Figure 1.
 
 .. image:: darshan-dev-modular-runtime.png
    :align: center
-   :scale: 90 %
+   :width: 600
    :alt: A block diagram of Darshan runtime environment
 
 As shown in Figure 1, the Darshan runtime environment is just a library

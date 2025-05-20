@@ -44,7 +44,7 @@ to Darshan's traditional coarse-grained instrumentation methods.
 
 .. image:: DXT-overhead.jpg
    :align: center
-   :width: 600
+   :width: 500
    :alt: Measure DXT Overhead with IOR Benchmark on Cori
 
 Starting in version 3.4.5, Darshan facilitates real-time collection of comprehensive
