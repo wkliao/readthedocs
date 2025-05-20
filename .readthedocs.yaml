@@ -14,7 +14,8 @@ build:
   jobs:
     pre_install:
       - git submodule update --init
-      - DARSHAN_RUNTIME_SKIP=1 DARSHAN_UTIL_CONFIG_ARGS="--disable-apmpi-mod --disable-apxc-mod" darshan-test/automated/build-darshan.sh
+      - autoreconf -i
+      - mkdir -p build && cd build && ../darshan-util/configure --prefix=$DARSHAN_INSTALL_PREFIX && make -j4 install
       - cd darshan-util/pydarshan ; pip install -r requirements_dev.txt ; make docs
 
 python:
